@@ -1,10 +1,10 @@
 **Weather App**
 
 XCode Version: 15.4  
-SwiftUI, UIKit 
+SwiftUI, UIKit   
 Deployment Target: iOS 17
 
-
+  
 Weather app is created with App template and SwiftUI type interface. 
 
 **Screens:**  
