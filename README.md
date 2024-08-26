@@ -1,7 +1,7 @@
 **Weather App**
 
-XCode Version: 15.4
-SwiftUI
+XCode Version: 15.4  
+SwiftUI  
 Deployment Target: iOS 17
 
 
