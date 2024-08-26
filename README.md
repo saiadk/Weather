@@ -7,7 +7,8 @@ Deployment Target: iOS 17
 
 Weather app is created with App template and SwiftUI type interface. 
 Screens: 
-ContentView
+**ContentView:** ContentView is the temporary start up screen that checks for location service permissions and toggle between WeatherView or some info message view. 
+
 WeatherView
   | - WeatherSearchView
   | - WeatherHeaderView
