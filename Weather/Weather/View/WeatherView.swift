@@ -42,9 +42,11 @@ struct WeatherView: View {
                                     .frame(maxHeight: .infinity)
                                     .padding(20)
                                 
-                                MapView()
-                                    .frame(height: 250)
-                                    .padding(20)
+                                if #available(iOS 17, *) {
+                                    MapView()
+                                        .frame(height: 250)
+                                        .padding(20)
+                                }
                             }
                         }
                     }

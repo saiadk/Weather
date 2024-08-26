@@ -11,13 +11,14 @@ import MapKit
 
 
 /* I would have refactored MapView logic to migrate to the newer APIs from deprecated ones, if time permits */
+
+@available (iOS 17, *)
 struct MapView: View {
     @EnvironmentObject var screenViewModel: WeatherViewModel
     @State private var position: MapCameraPosition = .automatic
-
     
     let rect = MKMapRect(
-        origin: MKMapPoint(.newYork),
+        origin: MKMapPoint(newyork),
         size: MKMapSize(width: 1, height: 1)
     )
     
@@ -29,14 +30,14 @@ struct MapView: View {
             Map( position: $position,
                  bounds: MapCameraBounds(
                     centerCoordinateBounds: MKMapRect(
-                        origin: MKMapPoint(screenViewModel.selectedCoordinate ?? .newYork),
+                        origin: MKMapPoint(screenViewModel.selectedCoordinate ?? newyork),
                         size: MKMapSize(width: 100, height: 100)
                     ),
                     minimumDistance: 100,
                     maximumDistance: 100
                     ),
                     interactionModes: .all ) {
-                        Annotation(screenViewModel.weather?.name ?? "", coordinate: screenViewModel.selectedCoordinate ?? .newYork) {
+                        Annotation(screenViewModel.weather?.name ?? "", coordinate: screenViewModel.selectedCoordinate ?? newyork) {
                             ZStack {
                                 Circle()
                                     .fill(Color.blue)
@@ -60,9 +61,5 @@ struct MapView: View {
     }
 }
 
-extension CLLocationCoordinate2D {
-    static let newYork: Self = .init(
-        latitude: 40.730610,
-        longitude: -73.935242
-    )
-}
+let newyork = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
+
