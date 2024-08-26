@@ -66,19 +66,29 @@ import MapKit
 
     func fetchWeatherData() {
         Task {
-            try await fetchData()
+            do {
+                try await fetchData()
+            } catch let error {
+                debugPrint("Data fetching failed: \(error.localizedDescription)")
+            }
             configureMap()
         }
     }
     
     func fetchData() async throws {
-        self.locationDetails = try await self.getLocationDetails()
-        self.weather = try await self.getWeatherData()
-        self.forecastDetails = try await self.getForecastDetails()
+        // This is a common error handler for location, weather and forecast APIs.
+        do {
+            self.locationDetails = try await self.getLocationDetails()
+            self.weather = try await self.getWeatherData()
+            self.forecastDetails = try await self.getForecastDetails()
+        } catch let error {
+            debugPrint("Handle \(error.localizedDescription) here")
+        }
         self.hourDetails = self.forecastDetails?.hourly ?? []
         self.dailyDetails = self.forecastDetails?.daily ?? []
     }
     
+    // Helper function to set map's region.
     func configureMap() {
         let coordinates = getCoordinates()
         let locationCoordinate = CLLocationCoordinate2D(latitude: Double(coordinates.0) ?? 0.0, longitude: Double(coordinates.1) ?? 0.0)
@@ -91,7 +101,7 @@ import MapKit
 
 //MARK: - Coordinates
 extension WeatherViewModel {
-    
+    // Individual errors are handled in a common place in WeatherView
     func getLocationDetails() async throws -> [Location] {
         userLocationLoading = true
         let latLongs = getCoordinates()
@@ -100,6 +110,7 @@ extension WeatherViewModel {
         return locationDetails
     }
     
+    // Returns current location from locat
     func getCoordinates() -> (String, String) {
         var latitude: Double = locationManager?.currentLocation?.coordinate.latitude ?? 0
         var longitude: Double = locationManager?.currentLocation?.coordinate.longitude ?? 0
@@ -113,7 +124,7 @@ extension WeatherViewModel {
 
 //MARK: - weather
 extension WeatherViewModel {
-    
+    // Individual errors are handled in a common place in WeatherView
      func getWeatherData() async throws -> Weather {
         weatherLoading = true
         let coordinates = getCoordinates()
@@ -125,7 +136,7 @@ extension WeatherViewModel {
 
 //MARK: - Forecast
 extension WeatherViewModel {
-    
+    // Individual errors are handled in a common place in WeatherView
      func getForecastDetails() async throws -> Forecast {
         forecastLoading = true
         let coordinates = getCoordinates()
@@ -138,15 +149,18 @@ extension WeatherViewModel {
 
 //MARK: - View Helpers
 extension WeatherViewModel {
+    // Gives 2x version URL as a string for a given imageName string.
     func getImageURL(imageName: String)-> String {
         return NetworkConstants.downloadImageAPIEndpoint + imageName +  "@2x.png"
     }
     
+    // Helper function to get min and max temperatures.
     func getMinMaxTemperature(item: DailyForecast) -> (Double, Double) {
         guard let temp = item.temp else { return (0, 0) }
         return ((temp.min ?? 0) , (temp.max ?? 0))
     }
     
+    // Returns time value (ex: 11AM) string for a given timestamp.
     func getHourFromTimestamp(timeStamp : Double) -> String {
         let date = Date(timeIntervalSince1970: timeStamp)
         let dayTimePeriodFormatter = DateFormatter()
@@ -157,6 +171,7 @@ extension WeatherViewModel {
         return hour
     }
     
+    // Returns day value (ex: Thu) string for a given timestamp.
     func getDayNameFromTimeStamp(timeStamp : Double) -> String {
         let date = Date(timeIntervalSince1970: timeStamp)
         let dayTimePeriodFormatter = DateFormatter()

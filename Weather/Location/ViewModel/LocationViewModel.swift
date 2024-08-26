@@ -10,11 +10,10 @@ import Foundation
 struct LocationViewModel {
     var locationNetworkService: any LocationNetworkService
     
-    // Inject network call dependency
+    // Inject network call service dependency
     init(locationNetworkService: any LocationNetworkService) {
         self.locationNetworkService = locationNetworkService
     }
-    
     
     func getLocation(search searchString: String) async throws -> [Location] {
         try await locationNetworkService.getLocation(search: searchString)

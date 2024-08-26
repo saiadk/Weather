@@ -60,5 +60,6 @@ struct MapView: View {
     }
 }
 
+// Default fallback location coordinates
 let newyork = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
 
