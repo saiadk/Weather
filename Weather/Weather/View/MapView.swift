@@ -12,7 +12,6 @@ import MapKit
 
 /* I would have refactored MapView logic to migrate to the newer APIs from deprecated ones, if time permits */
 
-@available (iOS 17, *)
 struct MapView: View {
     @EnvironmentObject var screenViewModel: WeatherViewModel
     @State private var position: MapCameraPosition = .automatic
