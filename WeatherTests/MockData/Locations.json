@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Frisco",
+    "local_names": {
+      "en": "Frisco"
+    },
+    "lat": 33.1506744,
+    "lon": -96.8236116,
+    "country": "US",
+    "state": "Texas"
+  },
+  {
+    "name": "Frisco",
+    "lat": 39.582964950000004,
+    "lon": -106.10563386944945,
+    "country": "US",
+    "state": "Colorado"
+  },
+  {
+    "name": "Frisco",
+    "lat": 39.5744299,
+    "lon": -106.0975196,
+    "country": "US",
+    "state": "Colorado"
+  }
+]
