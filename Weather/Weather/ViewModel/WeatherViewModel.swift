@@ -114,10 +114,11 @@ extension WeatherViewModel {
         let locationDetails: [Location]
         // This will show how we can handle API specific errors in common place where we consume these
         do {
-            locationDetails = try await locationNetworkService.getLocation(lat: latLongs.0, long: latLongs.0)
+            locationDetails = try await locationNetworkService.getLocation(lat: latLongs.0, long: latLongs.1)
         } catch let error {
             debugPrint(error)
             // We can further translate generic error to the specific type for better handling
+            isLoading = false
             throw WeatherError.locationDetailsError
         }
         self.userLocationLoading = false
