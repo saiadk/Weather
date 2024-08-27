@@ -8,7 +8,6 @@
 import Foundation
 
 protocol NetworkDataFetchable {
-    // associatedtype T
     func fetch<T: Decodable>(from urlString: String) async throws -> T
 }
 
