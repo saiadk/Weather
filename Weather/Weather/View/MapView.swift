@@ -32,8 +32,8 @@ struct MapView: View {
                         origin: MKMapPoint(screenViewModel.selectedCoordinate ?? newyork),
                         size: MKMapSize(width: 100, height: 100)
                     ),
-                    minimumDistance: 100,
-                    maximumDistance: 100
+                    minimumDistance: 25,
+                    maximumDistance: .infinity
                     ),
                     interactionModes: .all ) {
                         Annotation(screenViewModel.weather?.name ?? "", coordinate: screenViewModel.selectedCoordinate ?? newyork) {
