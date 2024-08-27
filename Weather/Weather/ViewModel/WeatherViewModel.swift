@@ -99,13 +99,27 @@ import MapKit
 
 }
 
+enum WeatherError: Error {
+    case locationDetailsError
+    case forecastError
+    case weatherDetailsError
+}
+
 //MARK: - Coordinates
 extension WeatherViewModel {
     // Individual errors are handled in a common place in WeatherView
     func getLocationDetails() async throws -> [Location] {
         userLocationLoading = true
         let latLongs = getCoordinates()
-        let locationDetails = try await locationNetworkService.getLocation(lat: latLongs.0, long: latLongs.0)
+        let locationDetails: [Location]
+        // This will show how we can handle API specific errors in common place where we consume these
+        do {
+            locationDetails = try await locationNetworkService.getLocation(lat: latLongs.0, long: latLongs.0)
+        } catch let error {
+            debugPrint(error)
+            // We can further translate generic error to the specific type for better handling
+            throw WeatherError.locationDetailsError
+        }
         self.userLocationLoading = false
         return locationDetails
     }
@@ -128,7 +142,12 @@ extension WeatherViewModel {
      func getWeatherData() async throws -> Weather {
         weatherLoading = true
         let coordinates = getCoordinates()
-        let weather = try await weatherNetworkService.getWeather(lat:  coordinates.0, long:  coordinates.1)
+         let weather: Weather
+         do {
+             weather = try await weatherNetworkService.getWeather(lat:  coordinates.0, long:  coordinates.1)
+         } catch let error {
+             throw WeatherError.weatherDetailsError
+         }
         self.weatherLoading = false
         return weather
     }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/* LocationSearchBar is wrapper type for UIKit UISearchBar to use in the LocationSearchView SwiftUI counterpart. */
 struct LocationSearchBar: UIViewRepresentable {
     @Binding var searchQuery: String
 
@@ -29,7 +30,7 @@ struct LocationSearchBar: UIViewRepresentable {
     func makeUIView(context: Context) -> UISearchBar {
         let searchBar = UISearchBar()
         searchBar.delegate = context.coordinator
-        searchBar.placeholder = "Search location"
+        searchBar.placeholder = "Search for a city"
         return searchBar
     }
 
