@@ -30,10 +30,10 @@ struct MapView: View {
                  bounds: MapCameraBounds(
                     centerCoordinateBounds: MKMapRect(
                         origin: MKMapPoint(screenViewModel.selectedCoordinate ?? newyork),
-                        size: MKMapSize(width: 100, height: 100)
+                        size: MKMapSize(width: 0, height: 0)
                     ),
-                    minimumDistance: 25,
-                    maximumDistance: .infinity
+                    minimumDistance: 0,
+                    maximumDistance: 100000
                     ),
                     interactionModes: .all ) {
                         Annotation(screenViewModel.weather?.name ?? "", coordinate: screenViewModel.selectedCoordinate ?? newyork) {
